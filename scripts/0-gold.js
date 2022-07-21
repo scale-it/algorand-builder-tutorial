@@ -1,10 +1,11 @@
-const { SignType, TransactionType, executeTransaction, balanceOf } = require('@algorand-builder/algob');
+const { balanceOf } = require('@algo-builder/algob');
+const { types } = require("@algo-builder/web");
 
 // a helper function used to create fund transaction
 function mkParam(senderAccount, receiverAddr, amount, payFlags) {
   return {
-    type: TransactionType.TransferAlgo,
-    sign: SignType.SecretKey,
+    type: types.TransactionType.TransferAlgo,
+    sign: types.SignType.SecretKey,
     fromAccount: senderAccount,
     toAccountAddr: receiverAddr,
     amountMicroAlgos: amount,
@@ -12,9 +13,8 @@ function mkParam(senderAccount, receiverAddr, amount, payFlags) {
   };
 };
 
-
 // This is an entry function in our script (a default, exported function)
-async function run (runtimeEnv, deployer) {
+async function run(runtime, deployer) {
   console.log('[gold]: Script has started execution!');
 
   // we start with extracting acocunt objects from the config.
@@ -27,9 +27,9 @@ async function run (runtimeEnv, deployer) {
   // Here we fund the accounts with 5e6, 5e6 and 1e6 AlGOs.
   const message = 'funding account';
   const promises = [
-    executeTransaction(deployer, mkParam(masterAccount, goldOwner.addr, 5e6, { note: message })),
-    executeTransaction(deployer, mkParam(masterAccount, john.addr, 5e6, { note: message })),
-    executeTransaction(deployer, mkParam(masterAccount, bob.addr, 1e6, { note: message }))];
+    deployer.executeTx([mkParam(masterAccount, goldOwner.addr, 5e6, { note: message })]),
+    deployer.executeTx([mkParam(masterAccount, john.addr, 5e6, { note: message })]),
+    deployer.executeTx([mkParam(masterAccount, bob.addr, 1e6, { note: message })])];
   await Promise.all(promises);
   console.log(">>> Accounts funded");
 
