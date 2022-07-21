@@ -46,7 +46,7 @@ async function run(runtime, deployer) {
   console.log(asaInfo);
 
   // In asa.yaml we only added `john` to opt-in accounts. Let's add `bob` as well
-  await deployer.optInToASA('gold', 'bob', {});
+  await deployer.optInAccountToASA('gold', 'bob', {});
 
   // we can inspect the balance of the goldOnwer. It should equal to the `total` value defined
   // in the asa.yaml.
