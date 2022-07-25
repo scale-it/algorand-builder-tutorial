@@ -50,7 +50,7 @@ async function run(runtime, deployer) {
 
   // we can inspect the balance of the goldOnwer. It should equal to the `total` value defined
   // in the asa.yaml.
-  await balanceOf(deployer, goldOwner.addr, asaInfo.assetIndex);
+  console.log(await balanceOf(deployer, goldOwner.addr, asaInfo.assetIndex));
 
   console.log('[gold]: Script execution has finished!');
 }
