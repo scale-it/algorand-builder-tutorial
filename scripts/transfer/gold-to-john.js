@@ -1,6 +1,7 @@
-const { executeTransaction, balanceOf, TransactionType, SignType } = require('@algorand-builder/algob');
+const { balanceOf } = require('@algo-builder/algob');
+const { types } = require("@algo-builder/web");
 
-async function run (runtimeEnv, deployer) {
+async function run(runtime, deployer) {
   // query gold ASA from deployer (using checkpoint information),
   const goldAsset = deployer.asa.get('gold')
   if (goldAsset === undefined) {
@@ -13,17 +14,17 @@ async function run (runtimeEnv, deployer) {
   const goldOwner = deployer.accountsByName.get('alice');
 
   // execute asset transfer transaction
-  await executeTransaction(deployer, {
-    type: TransactionType.TransferAsset,
-    sign: SignType.SecretKey,
+  await deployer.executeTx([{
+    type: types.TransactionType.TransferAsset,
+    sign: types.SignType.SecretKey,
     fromAccount: goldOwner,
     toAccountAddr: john.addr,
     amount: 1,
     assetID: goldAsset.assetIndex,
     payFlags: {}
-  });
+  }]);
 
-  await balanceOf(deployer, john.addr, goldAsset.assetIndex);
+  console.log(await balanceOf(deployer, john.addr, goldAsset.assetIndex));
 }
 
 module.exports = { default: run };

@@ -1,4 +1,6 @@
-./artifacts
+artifacts/*
+node_modules
+.yarn
 
 # Logs
 logs

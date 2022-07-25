@@ -4,9 +4,7 @@
   "main": "index.js",
   "license": " MPL-2.0",
   "dependencies": {
-    "algob": ">=0.3.0"
-  },
-  "scripts": {
-    "algob": "algob"
+    "@algo-builder/algob": "^5.0.1",
+    "@algo-builder/web": "^5.0.1"
   }
 }
