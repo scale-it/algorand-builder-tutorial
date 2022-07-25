@@ -24,7 +24,7 @@ async function run(runtime, deployer) {
     payFlags: {}
   }]);
 
-  await balanceOf(deployer, john.addr, goldAsset.assetIndex);
+  console.log(await balanceOf(deployer, john.addr, goldAsset.assetIndex));
 }
 
 module.exports = { default: run };
